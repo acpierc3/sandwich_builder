@@ -9,7 +9,9 @@ const buildControl = ( props ) => (
             className={classes.Less} 
             onClick={(e) => props.onRemoveIngred(props.type,e)}
             disabled={props.disabledInfo}>Less</button>
-        <button className={classes.More} onClick={(e) => props.onAddIngred(props.type,e)}>More</button>
+        <button 
+            className={classes.More} 
+            onClick={(e) => props.onAddIngred(props.type,e)}>More</button>
     </div>
 
 );

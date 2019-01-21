@@ -76,7 +76,8 @@ class BurgerBuilder extends Component {
                 <BuildControls 
                     onAddIngred={this.onAddIngred}
                     onRemoveIngred={this.onRemoveIngred}
-                    disabledInfo={disabledInfo} />
+                    disabledInfo={disabledInfo}
+                    totalPrice={this.state.totalPrice} />
             </Aux>
         )
     }
