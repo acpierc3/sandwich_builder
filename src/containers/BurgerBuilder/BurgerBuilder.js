@@ -23,11 +23,12 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 3,
-        purchasable: false
+        purchasable: false,
+        purchasing: false
     }
 
-    stateUpdated = () => {
-        console.log("state updated! Purchasable: ",this.state.purchasable);
+    onPurchase = () => {
+        this.setState({purchasing: true});
     }
 
     updatePurchasable = (ingredients) => {
@@ -39,7 +40,7 @@ class BurgerBuilder extends Component {
                 return sum + elem;
             })
         
-        this.setState({purchasable: sum > 0},this.stateUpdated)
+        this.setState({purchasable: sum > 0})
     }
 
     onAddIngred = (type) => {
@@ -90,17 +91,25 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                <Modal>
-                    <OrderSummary ingredients={this.state.ingredients} />
-                </Modal>
-                <Burger ingredients={this.state.ingredients} />
-                <BuildControls 
-                    onAddIngred={this.onAddIngred}
-                    onRemoveIngred={this.onRemoveIngred}
-                    disabledInfo={disabledInfo}
-                    totalPrice={this.state.totalPrice}
-                    purchasable={this.state.purchasable} />
+                {this.state.purchasing ? (
+                    <Modal>
+                        <OrderSummary ingredients={this.state.ingredients} />
+                    </Modal>
+                ) : (
+                    <Aux>
+                        <Burger ingredients={this.state.ingredients} />
+                        <BuildControls 
+                            onAddIngred={this.onAddIngred}
+                            onRemoveIngred={this.onRemoveIngred}
+                            disabledInfo={disabledInfo}
+                            totalPrice={this.state.totalPrice}
+                            purchasable={this.state.purchasable}
+                            onPurchase={this.onPurchase} />
+                    </Aux>
+                    )}
             </Aux>
+                
+            
         )
     }
 }
