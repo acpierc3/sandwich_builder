@@ -22,6 +22,7 @@ const buildControls = ( props ) => (
                 onRemoveIngred={props.onRemoveIngred}
                 disabledInfo={props.disabledInfo[ctrl.type]} />
         ))}
+        <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER THIS BURG</button>
     </div>
 
 );
