@@ -91,11 +91,11 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                {this.state.purchasing ? (
-                    <Modal>
+                {/* {this.state.purchasing ? ( */}
+                    <Modal show={this.state.purchasing}>
                         <OrderSummary ingredients={this.state.ingredients} />
                     </Modal>
-                ) : (
+                {/* ) : ( */}
                     <Aux>
                         <Burger ingredients={this.state.ingredients} />
                         <BuildControls 
@@ -106,7 +106,7 @@ class BurgerBuilder extends Component {
                             purchasable={this.state.purchasable}
                             onPurchase={this.onPurchase} />
                     </Aux>
-                    )}
+                    {/* )} */}
             </Aux>
                 
             
