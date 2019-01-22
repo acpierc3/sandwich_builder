@@ -4,6 +4,7 @@ import Aux from '../../hoc/Ox';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
+import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES =  {    //typically you name global constants in all caps
@@ -28,7 +29,11 @@ class BurgerBuilder extends Component {
     }
 
     onPurchase = () => {
-        this.setState({purchasing: true});
+        this.setState({purchasing: !this.state.purchasing});
+    }
+
+    purchaseContinueHandler = () => {
+        alert('You continue!')
     }
 
     updatePurchasable = (ingredients) => {
@@ -91,22 +96,21 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                {/* {this.state.purchasing ? ( */}
-                    <Modal show={this.state.purchasing}>
-                        <OrderSummary ingredients={this.state.ingredients} />
-                    </Modal>
-                {/* ) : ( */}
-                    <Aux>
-                        <Burger ingredients={this.state.ingredients} />
-                        <BuildControls 
-                            onAddIngred={this.onAddIngred}
-                            onRemoveIngred={this.onRemoveIngred}
-                            disabledInfo={disabledInfo}
-                            totalPrice={this.state.totalPrice}
-                            purchasable={this.state.purchasable}
-                            onPurchase={this.onPurchase} />
-                    </Aux>
-                    {/* )} */}
+                <Modal show={this.state.purchasing}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        clickContinue={this.purchaseContinueHandler}
+                        clickCancel={this.onPurchase}  />
+                </Modal>
+                <Backdrop show={this.state.purchasing} cancel={this.onPurchase} />
+                    <Burger ingredients={this.state.ingredients} />
+                    <BuildControls 
+                        onAddIngred={this.onAddIngred}
+                        onRemoveIngred={this.onRemoveIngred}
+                        disabledInfo={disabledInfo}
+                        totalPrice={this.state.totalPrice}
+                        purchasable={this.state.purchasable}
+                        onPurchase={this.onPurchase} />
             </Aux>
                 
             
