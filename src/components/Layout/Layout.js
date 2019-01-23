@@ -11,13 +11,15 @@ class Layout extends Component {
     }
 
     sideDrawerHandler = () => {
-        this.setState({showSideDrawer: !this.state.showSideDrawer})
+        this.setState( ( prevState ) => {
+            return {showSideDrawer: !prevState.showSideDrawer}      //this is the clean way of toggling based on previous state, due to the asynchronous nature of setState
+        })
     }
 
     render () {
         return (
             <Aux>
-                <Toolbar />
+                <Toolbar sideDrawerHandler={this.sideDrawerHandler} />
                 <SideDrawer 
                     show={this.state.showSideDrawer} 
                     cancel={this.sideDrawerHandler} />
