@@ -6,6 +6,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
 
 const INGREDIENT_PRICES =  {    //typically you name global constants in all caps
     lettuce: 0.4,
@@ -33,7 +34,25 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        alert('You continue!')
+        // alert('You continue!')
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,                //in a real setup you would calculate price server-side so as to avoid users manipulating the price
+            customer: {
+                name: 'Adam Donger',
+                address: {
+                    street: '21 New Street',
+                    zipCode: '69696',
+                    country: 'USA'
+                },
+                email: 'test@test.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        axios.post('/order.json', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
+
     }
 
     updatePurchasable = (ingredients) => {
