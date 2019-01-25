@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../Ox/Ox';
+import Backdrop from '../../components/UI/Backdrop/Backdrop'
 
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
         state = {
-            error:null
+            error:{message: 'test'}
         }
         componentDidMount () {
             axios.interceptors.request.use(req => {             //used to set error state to null if there are no errors
                 this.setState({error: null});
                 return req;
             });
-            axios.interceptors.request.use(res => res, error => {     //record error if there is one
+            axios.interceptors.response.use(res => res, error => {     //record error if there is one
                 this.setState({error: error});
+                console.log("ERROR!!!!");
             });
         }
 
-        errorConfirmedHandler() {
+        errorConfirmedHandler = () => {
             this.setState({error:null});
         }
 
@@ -30,7 +32,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
                         cancel={this.errorConfirmedHandler}>
                         {this.state.error? this.state.error.message : null}
                     </Modal>
-                <WrappedComponent {...this.props} />
+                    <Backdrop show={this.state.error} cancel={this.errorConfirmedHandler}/>
+                    <WrappedComponent {...this.props} />
                 </Aux>
             );
         }
@@ -38,3 +41,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
 }
 
 export default withErrorHandler;
+
+// show={this.state.error}
+// 
+
+// {this.state.error? this.state.error.message : null}

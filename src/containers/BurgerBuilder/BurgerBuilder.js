@@ -55,7 +55,7 @@ class BurgerBuilder extends Component {
             },
             deliveryMethod: 'fastest'
         }
-        axios.post('/order.json', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
+        axios.post('/orderasdaswasdawd', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
             .then(response => {
                 this.setState({loading: false, purchasing: false});
             })
