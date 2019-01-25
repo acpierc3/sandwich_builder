@@ -7,7 +7,7 @@ import Backdrop from '../../components/UI/Backdrop/Backdrop'
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
         state = {
-            error:{message: 'test'}
+            error:null
         }
         componentDidMount () {
             axios.interceptors.request.use(req => {             //used to set error state to null if there are no errors
@@ -16,7 +16,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
             });
             axios.interceptors.response.use(res => res, error => {     //record error if there is one
                 this.setState({error: error});
-                console.log("ERROR!!!!");
             });
         }
 
@@ -41,8 +40,3 @@ const withErrorHandler = (WrappedComponent, axios) => {
 }
 
 export default withErrorHandler;
-
-// show={this.state.error}
-// 
-
-// {this.state.error? this.state.error.message : null}

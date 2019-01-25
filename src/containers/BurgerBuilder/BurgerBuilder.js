@@ -20,16 +20,25 @@ const INGREDIENT_PRICES =  {    //typically you name global constants in all cap
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients: {
-            lettuce: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        // ingredients: {
+        //     lettuce: 0,
+        //     meat: 0,
+        //     bacon: 0,
+        //     cheese: 0
+        // },
+        ingredients: null,
+            
         totalPrice: 3,
         purchasable: false,
         purchasing: false,
         loading: false
+    }
+
+    componentDidMount () {
+        axios.get('https://react-mysandwich.firebaseio.com/ingredients.json')
+            .then( res => {
+                this.setState({ingredients: res.data});
+            });
     }
 
     onPurchase = () => {
@@ -45,7 +54,7 @@ class BurgerBuilder extends Component {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,                //in a real setup you would calculate price server-side so as to avoid users manipulating the price
             customer: {
-                name: 'Adam Donger',
+                name: 'NEW DONGER',
                 address: {
                     street: '21 New Street',
                     zipCode: '69696',
@@ -55,7 +64,7 @@ class BurgerBuilder extends Component {
             },
             deliveryMethod: 'fastest'
         }
-        axios.post('/orderasdaswasdawd', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
+        axios.post('/orders.json', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
             .then(response => {
                 this.setState({loading: false, purchasing: false});
             })
@@ -122,11 +131,29 @@ class BurgerBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
 
-        let orderSummary = <OrderSummary 
-        ingredients={this.state.ingredients}
-        clickContinue={this.purchaseContinueHandler}
-        clickCancel={this.onPurchase}
-        price={this.state.totalPrice}  />;
+        let orderSummary = null;
+        let burger = <Spinner />;
+
+        if (this.state.ingredients) {
+            burger = (
+                <Aux>
+                    <Burger ingredients={this.state.ingredients} />
+                    <BuildControls 
+                        onAddIngred={this.onAddIngred}
+                        onRemoveIngred={this.onRemoveIngred}
+                        disabledInfo={disabledInfo}
+                        totalPrice={this.state.totalPrice}
+                        purchasable={this.state.purchasable}
+                        onPurchase={this.onPurchase} />
+                </Aux>
+            );
+
+            orderSummary = <OrderSummary 
+                ingredients={this.state.ingredients}
+                clickContinue={this.purchaseContinueHandler}
+                clickCancel={this.onPurchase}
+                price={this.state.totalPrice}  />;
+        }
         if (this.state.loading) {
             orderSummary = <Spinner />;
         }
@@ -138,17 +165,8 @@ class BurgerBuilder extends Component {
                     {orderSummary}
                 </Modal>
                 <Backdrop show={this.state.purchasing} cancel={this.onPurchase} />
-                    <Burger ingredients={this.state.ingredients} />
-                    <BuildControls 
-                        onAddIngred={this.onAddIngred}
-                        onRemoveIngred={this.onRemoveIngred}
-                        disabledInfo={disabledInfo}
-                        totalPrice={this.state.totalPrice}
-                        purchasable={this.state.purchasable}
-                        onPurchase={this.onPurchase} />
+                {burger}
             </Aux>
-                
-            
         )
     }
 }
