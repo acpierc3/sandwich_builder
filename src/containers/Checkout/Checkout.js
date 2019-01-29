@@ -13,10 +13,31 @@ class Checkout extends Component {
         }
     }
 
+    componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        const ingredients = {};
+        for (let param of query.entries()) {
+            //['lettuce', '1']
+            ingredients[param[0]] = +param[1];
+        }
+        this.setState({ingredients: ingredients});
+    }
+
+    onCheckoutCancel = () => {
+        this.props.history.goBack();
+    }
+
+    onCheckoutContinue = () => {
+        this.props.history.replace('/checkout/contact-data');
+    }
+
     render() {
         return (
             <div>
-                <CheckoutSummary ingredients={this.state.ingredients} />
+                <CheckoutSummary 
+                    ingredients={this.state.ingredients}
+                    onCheckoutCancel={this.onCheckoutCancel}
+                    onCheckoutContinue={this.onCheckoutContinue} />
             </div>
         )
     }
