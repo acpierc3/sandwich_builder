@@ -48,32 +48,32 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // alert('You continue!')
+        // // alert('You continue!')
 
-        this.setState({loading: true});
+        // this.setState({loading: true});
         
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,                //in a real setup you would calculate price server-side so as to avoid users manipulating the price
-            customer: {
-                name: 'NEW DONGER',
-                address: {
-                    street: '21 New Street',
-                    zipCode: '69696',
-                    country: 'USA'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        }
-        axios.post('/orders.json', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
-            .then(response => {
-                this.setState({loading: false, purchasing: false});
-            })
-            .catch(error => {
-                this.setState({loading: false, purchasing: false});
-            })
-
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,                //in a real setup you would calculate price server-side so as to avoid users manipulating the price
+        //     customer: {
+        //         name: 'NEW DONGER',
+        //         address: {
+        //             street: '21 New Street',
+        //             zipCode: '69696',
+        //             country: 'USA'
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axios.post('/orders.json', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
+        //     .then(response => {
+        //         this.setState({loading: false, purchasing: false});
+        //     })
+        //     .catch(error => {
+        //         this.setState({loading: false, purchasing: false});
+        //     })
+        this.props.history.push('./checkout');
     }
 
     updatePurchasable = (ingredients) => {
