@@ -14,7 +14,7 @@ const order = (props) => {
         );
     }
 
-    const ingredientOutput = ingredients.map(ig => {
+    const ingredientOutput = ingredients.map(ingies => {
         return <span
         style={{
             textTransform: 'capitalize',
@@ -23,13 +23,14 @@ const order = (props) => {
             border: '1px solid #ccc',
             padding: '5px'
         }}
-        key={ig.name}>{ig.name} ({ig.amount})</span>;
+        key={ingies.name}>{ingies.name} ({ingies.amount})</span>;
     })
 
     return (
         <div className={classes.Order}>
             <p>Ingredients: {ingredientOutput}</p>
             <p>Price: <strong>${props.price.toFixed(2)}</strong></p>
+            <p>how many cheese sir: {props.ingredients.cheese}</p>
         </div>
     )
 };
