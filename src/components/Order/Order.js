@@ -30,7 +30,6 @@ const order = (props) => {
         <div className={classes.Order}>
             <p>Ingredients: {ingredientOutput}</p>
             <p>Price: <strong>${props.price.toFixed(2)}</strong></p>
-            <p>how many cheese sir: {props.ingredients.cheese}</p>
         </div>
     )
 };
