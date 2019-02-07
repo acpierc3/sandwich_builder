@@ -15,16 +15,21 @@ const order = (props) => {
     }
 
     const ingredientOutput = ingredients.map(ingies => {
-        return <span
-        style={{
-            textTransform: 'capitalize',
-            display: 'inline-block',
-            margin: '0 8px',
-            border: '1px solid #ccc',
-            padding: '5px'
-        }}
-        key={ingies.name}>{ingies.name} ({ingies.amount})</span>;
+        if (ingies.amount > 0) {
+            return <span
+            style={{
+                textTransform: 'capitalize',
+                display: 'inline-block',
+                margin: '0 8px',
+                border: '1px solid #ccc',
+                padding: '5px'
+            }}
+            key={ingies.name}>{ingies.name} ({ingies.amount})</span>;
+        } else {
+            return null;
+        }
     })
+    
 
     return (
         <div className={classes.Order}>
