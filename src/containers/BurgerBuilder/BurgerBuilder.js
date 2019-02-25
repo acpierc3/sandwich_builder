@@ -20,8 +20,8 @@ class BurgerBuilder extends Component {
         // ingredients: null,
         // totalPrice: 3,
 
-        purchasable: false,     //the following are UI based states, and not super important to manage through redux
-        purchasing: false,
+        // purchasable: false,     
+        purchasing: false, //the following are UI based states, and not super important to manage through redux
         loading: false,
         error: false
     }
@@ -40,16 +40,13 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
 
-        const queryParams = [];
-        for (let i in this.props.ingreds) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        }
-        queryParams.push('price=' + this.state.totalPrice);
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: './checkout',
-            search: '?' + queryString
-        });
+        // const queryParams = [];
+        // for (let i in this.props.ingreds) {
+        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        // }
+        // queryParams.push('price=' + this.state.totalPrice);
+        // const queryString = queryParams.join('&');
+        this.props.history.push('/checkout');
     }
 
     updatePurchasable = (ingredients) => {
@@ -61,7 +58,7 @@ class BurgerBuilder extends Component {
                 return sum + elem;
             })
         
-        this.setState({purchasable: sum > 0})
+        return sum > 0;
     }
 
     //the following functions were used prior to incorporating redux. They are now stored in the reducer.js file
@@ -123,7 +120,7 @@ class BurgerBuilder extends Component {
                         onRemoveIngred={this.props.onIngredientRemoved}
                         disabledInfo={disabledInfo}
                         totalPrice={this.props.price}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchasable(this.props.ingreds)}
                         onPurchase={this.onPurchase} />
                 </Aux>
             );

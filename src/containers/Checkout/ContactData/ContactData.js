@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -22,13 +23,13 @@ class ContactData extends Component {
         this.setState({loading: true});
         
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ingreds,
             price: this.props.price,                //in a real setup you would calculate price server-side so as to avoid users manipulating the price
             customer: {
-                name: 'NEW DONGER',
+                name: 'NEW',
                 address: {
                     street: '21 New Street',
-                    zipCode: '69696',
+                    zipCode: '12345',
                     country: 'USA'
                 },
                 email: 'test@test.com'
@@ -69,4 +70,12 @@ class ContactData extends Component {
 
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return {
+        ingreds: state.ingredients,
+        price: state.totalPrice
+    }
+}
+
+
+export default connect(mapStateToProps)(ContactData);
