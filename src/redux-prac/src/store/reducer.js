@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_PERSON:
             let newPerson = {
-                id: Math.random(), // not really unique but good enough here!
+                id: Math.random(),
                 name: 'Max',
                 age: Math.floor( Math.random() * 40 )
             }
@@ -45,11 +45,11 @@ const reducer = (state = initialState, action) => {
                 ],
             };
         case actionTypes.REMOVE_PERSON:
+            console.log(action.id);
+            console.log(state.people.filter(person => person.id !== action.id));
             return {
                 ...state,
-                people: [
-                    state.people.filter(person => person.id !== action.id)
-                ]
+                people: state.people.filter(person => person.id !== action.id)
             };
 
         default:

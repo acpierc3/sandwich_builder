@@ -40,7 +40,7 @@ import App from './redux-prac/src/App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './redux-prac/src/store/reducer';
 
-const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 
 
