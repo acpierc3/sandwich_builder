@@ -18,8 +18,12 @@ Solution.prototype.shuffle = function() {
     while(this.nums.length > 0) {
         console.log(this.nums);
         console.log(Math.floor(Math.random()*this.OGnums.length));
-        this.shufflednums[Math.floor(Math.random()*this.OGnums.length)] = this.nums.pop();
-        // this.nums.pop();
+        if(this.nums.length != 1) {
+            this.shufflednums[Math.floor(Math.random()*this.OGnums.length)] = this.nums.pop();
+        } else {
+            this.shufflednums[Math.floor(Math.random()*this.OGnums.length)] = this.nums[0];
+        }
+            // this.nums.pop();
         
     }
     return this.shufflednums;
