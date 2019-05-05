@@ -6,7 +6,7 @@ class AddPerson extends Component {
 
     state = {
         name: '',
-        age: null
+        age: ''
     }
 
     onNameChange = (event) => {
