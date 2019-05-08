@@ -5,6 +5,8 @@ import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.module.css';
 import axios from '../../../axios-orders';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as orderActions from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -77,5 +79,13 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onPurchaseBurgerSuccess: (id, orderData) => dispatch(orderActions.purchaseBurgerSuccess(id, orderData)),
+        onPurchaseBurgerFail: (error) => dispatch(orderActions.purchaseBurgerFail(error)),
+        onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurgerStart(orderData))
+    }
+}
 
-export default connect(mapStateToProps)(ContactData);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData));
