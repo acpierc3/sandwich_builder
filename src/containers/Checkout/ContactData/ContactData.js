@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './ContactData.module.css';
-import axios from '../../../axios-orders';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as orderActions from '../../../store/actions/index';
+import axios from '../../../axios-orders';
 
 class ContactData extends Component {
     state = {
@@ -15,14 +15,11 @@ class ContactData extends Component {
         address: {
             street: '',
             postalCode: ''
-        },
-        loading: false
+        }
     }
 
     onOrder = (event) => {
         event.preventDefault();         //prevents default of sending request and reloading page
-
-        this.setState({loading: true});
         
         const order = {
             ingredients: this.props.ingreds,
@@ -38,14 +35,7 @@ class ContactData extends Component {
             },
             deliveryMethod: 'fastest'
         }
-        axios.post('/orders.json', order)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
-            .then(response => {
-                this.setState({loading: false});
-                this.props.history.push('/');
-            })
-            .catch(error => {
-                this.setState({loading: false});
-            })
+        this.props.onOrderBurger(order);
     }
 
 
@@ -59,7 +49,7 @@ class ContactData extends Component {
                 <Button type="Success" clicked={this.onOrder}>ORDER</Button>
             </form>
         );
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
         return (
@@ -74,18 +64,17 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingreds: state.ingredients,
-        price: state.totalPrice
+        ingreds: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPurchaseBurgerSuccess: (id, orderData) => dispatch(orderActions.purchaseBurgerSuccess(id, orderData)),
-        onPurchaseBurgerFail: (error) => dispatch(orderActions.purchaseBurgerFail(error)),
-        onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurgerStart(orderData))
+        onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurger(orderData))
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));

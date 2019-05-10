@@ -16,8 +16,15 @@ export const purchaseBurgerFail = (error) => {
     }
 }
 
-export const purchaseBurgerStart = (orderData) => {
+export const purchaseBurgerStart = () => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_START
+    };
+}
+
+export const purchaseBurger = (orderData) => {
     return dispatch => {
+        dispatch(purchaseBurgerStart());
         axios.post('/orders.json', orderData)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
             .then(response => {
                 console.log(response.data);
