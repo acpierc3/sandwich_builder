@@ -91,7 +91,7 @@ class ContactData extends Component {
         const updatedOrderForm = {
             ...this.state.orderForm,
             [inputIdentifier]: {
-                ...this.state[inputIdentifier],
+                ...this.state.orderForm[inputIdentifier],
                 value: event.target.value
             }
 
