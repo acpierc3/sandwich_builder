@@ -86,6 +86,19 @@ class ContactData extends Component {
         this.props.onOrderBurger(order);
     }
 
+    inputChangedHandler = (event, inputIdentifier) => {
+        console.log(event.target.value);
+        const updatedOrderForm = {
+            ...this.state.orderForm,
+            [inputIdentifier]: {
+                ...this.state[inputIdentifier],
+                value: event.target.value
+            }
+
+        }
+        this.setState({orderForm: updatedOrderForm});
+    }
+
 
     render () {
 
@@ -105,6 +118,7 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
