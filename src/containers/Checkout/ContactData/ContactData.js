@@ -141,6 +141,7 @@ class ContactData extends Component {
         }
 
         return isValid;
+        
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
