@@ -126,6 +126,7 @@ class ContactData extends Component {
     }
 
     checkValidity = (value, rules) => {
+        //validate data entry based on set rules parameters
         let isValid = true;
 
         if (rules.required) {
