@@ -137,8 +137,12 @@ class ContactData extends Component {
     }
 
     checkValidity = (value, rules) => {
-        //validate data entry based on set rules parameters
         let isValid = true;
+
+        //double security, if there are no validation rules, input is always valid
+        if(!rules) {
+            return true;
+        }
 
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
