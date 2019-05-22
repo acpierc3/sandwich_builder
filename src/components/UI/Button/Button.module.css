@@ -1,7 +1,7 @@
 .Button {
     background-color: transparent;
     border: none;
-    color: white;
+    color: green;
     outline: none;
     cursor: pointer;
     font: inherit;
@@ -13,6 +13,11 @@
 .Button:first-of-type {
     margin-left: 0;
     padding-left: 0;
+}
+
+.Button:disabled {
+    color: #CCC;
+    cursor: not-allowed;
 }
 
 .Success {
