@@ -163,8 +163,6 @@ class ContactData extends Component {
     }
 
 
-
-
     render () {
 
         const formElementsArray = [];
@@ -193,8 +191,6 @@ class ContactData extends Component {
             </form>
         )
 
-
-
         if (this.props.loading) {
             form = <Spinner />;
         }
@@ -205,7 +201,6 @@ class ContactData extends Component {
             </div>
         )
     }
-
 }
 
 const mapStateToProps = state => {
@@ -221,6 +216,5 @@ const mapDispatchToProps = dispatch => {
         onOrderBurger: (orderData) => dispatch(orderActions.purchaseBurger(orderData))
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
