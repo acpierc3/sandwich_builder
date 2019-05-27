@@ -5,13 +5,9 @@ import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as orderActions from '../../store/actions/index';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Orders extends Component {
-
-    state = {
-        orders: [],
-        loading: true
-    }
 
     componentDidMount() {   //can use this instead of componentdidupdate because we will only be seeing this page when orders is clicked, there will be no updating
         // axios.get('/orders.json')
@@ -33,14 +29,23 @@ class Orders extends Component {
     }
 
     render () {
+
+        let orders = (
+            this.props.orders.map(order => (
+                <Order 
+                    key={order.id}
+                    ingredients={order.ingredients}
+                    price={+order.price} />
+            ))
+        )
+
+        if (this.props.loading) {
+            orders = <Spinner />;
+        }
+
         return (
             <div>
-                {this.props.orders.map(order => (
-                    <Order 
-                        key={order.id}
-                        ingredients={order.ingredients}
-                        price={+order.price} />
-                ))}
+                {orders}
             </div>
         );
     }
