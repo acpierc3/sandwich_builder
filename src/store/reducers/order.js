@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     orders: [],
     loading: false,
-    purchased: false
+    purchased: false,
+    eaten: false
 }
 
 const reducer = (state = initialState, action) => {
