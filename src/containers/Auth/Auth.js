@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import classes from './Auth.module.css';
 
 class Auth extends Component {
 
@@ -35,7 +36,8 @@ class Auth extends Component {
                 valid: false,
                 touched: false
             }
-        }
+        },
+        formIsValid: false
     }
 
     checkValidity = (value, rules) => {
@@ -58,9 +60,41 @@ class Auth extends Component {
             isValid = value.length <= rules.maxLength && isValid;
         }
 
+        if (rules.isEmail) {
+            const pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
+            isValid = pattern.test(value) && isValid;
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid;
+        }
+
         return isValid;
 
     };
+
+    inputChangedHandler = (event, controlName) => {
+        const updatedControls = {
+            ...this.state.controls,
+            [controlName]: {
+                ...this.state.controls[controlName],
+                value: event.target.value,
+                touched: true,
+                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation)
+            }
+        }
+
+        //WILL IMPLEMENT LATER
+        
+        // let formIsValid = true;
+        // for (let controlName in updatedControls) {
+        //     formIsValid = updatedControls[controlName].valid && formIsValid;
+        // }
+
+        // this.setState({controls: updatedControls, formIsValid: formIsValid});
+        this.setState({controls: updatedControls});
+    }
 
     render () {
 
@@ -88,7 +122,7 @@ class Auth extends Component {
 
 
         return (
-            <div>
+            <div className={classes.Auth}>
                 <form>
                     {form}
                     <Button type="Success">SUBMIT</Button>
