@@ -22,10 +22,10 @@ export const purchaseBurgerStart = () => {
     };
 }
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
     return dispatch => {
         dispatch(purchaseBurgerStart());
-        axios.post('/orders.json', orderData)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
+        axios.post('/orders.json?auth=' +token, orderData)            //this is the url that is appended to base url in axios-orders.js Will be different for other projects
             .then(response => {
                 console.log(response.data);
                 dispatch(purchaseBurgerSuccess(response.data.name, orderData));
