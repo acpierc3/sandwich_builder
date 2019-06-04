@@ -33,7 +33,7 @@ const reducer = (state=initialState, action) => {
             return {
                 ...state,
                 token: null,
-                user: null
+                userId: null
             }
         default:
             return state;

@@ -62,10 +62,11 @@ export const fetchOrdersStart = () => {
     }
 }
 
-export const fetchOrders = () => {
+//instead of passing token as an arg here, could also use getState (dispatch, getState) to grab token from the current state
+export const fetchOrders = (token) => {
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('/orders.json')
+        axios.get('/orders.json?auth=' +token)
         .then(res => {
             const fetchedOrders = [];
             for (let key in res.data) {
