@@ -7,7 +7,9 @@ const navigationItems = (props) => (
     <ul className={classes.NavigationItems}>
         <li><NavLink exact to='/' activeClassName={classes.active}>Burger Builder</NavLink></li>
         <li><NavLink to='/orders' activeClassName={classes.active}>Orders</NavLink></li>
-        <li><NavLink to='/auth' activeClassName={classes.active}>Authenticate</NavLink></li>
+        {!props.isAuthenticated 
+            ? <li><NavLink to='/auth' activeClassName={classes.active}>Authenticate</NavLink></li>
+            : <li><NavLink to='/logout' activeClassName={classes.active}>Logout</NavLink></li>}
     </ul>
 );
 
