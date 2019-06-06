@@ -16,10 +16,10 @@ const sideDrawer = (props) => {
     return (
         <Aux>
             <Backdrop show={props.show} cancel={props.cancel} />
-            <div className={attachedClasses.join(" ")}>
-            <div className={classes.Logo}>
-                <Logo />
-            </div>
+            <div className={attachedClasses.join(" ")} onClick={props.cancel}>
+                <div className={classes.Logo}>
+                    <Logo />
+                </div>
                 <nav>
                     <NavigationItems isAuthenticated={props.isAuthenticated} />
                 </nav>
