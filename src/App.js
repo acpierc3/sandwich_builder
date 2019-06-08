@@ -10,6 +10,7 @@ import * as actions from './store/actions/index';
 
 //lazy loading components (async loading), great for optimizing apps, probably not necessary for this app
 // since the components are so small, but just good to test it out
+//also could use react.lazy
 
 const asyncCheckout = asyncComponent(() => {
   return import('./containers/Checkout/Checkout');
