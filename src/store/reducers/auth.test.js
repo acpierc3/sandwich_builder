@@ -10,24 +10,20 @@ import * as actionTypes from '../actions/actionTypes';
 
 describe('auth reducer', () => {
 
+    const initialState = {
+        token: null,
+        userId: null,
+        error: null,
+        loading: false,
+        authRedirectPath: '/'
+    }
+
     it('should return the initial state', () => {
-        expect(reducer(undefined, {})).toEqual({
-            token: null,
-            userId: null,
-            error: null,
-            loading: false,
-            authRedirectPath: '/'
-        })
+        expect(reducer(undefined, {})).toEqual(initialState)
     })
 
     it('should store the token upon login', () => {
-        expect(reducer({
-            token: null,
-            userId: null,
-            error: null,
-            loading: false,
-            authRedirectPath: '/'
-        }, {
+        expect(reducer(initialState, {
             type: actionTypes.AUTH_SUCCESS,
             idToken: 'some-token',
             userId: 'some-user-id'
@@ -37,6 +33,17 @@ describe('auth reducer', () => {
             error: null,
             loading: false,
             authRedirectPath: '/'
+        })
+    })
+
+    it('should save error upon login error', () => {
+        expect(reducer(initialState, {
+            type: actionTypes.AUTH_FAIL,
+            error: 'some-error'
+        })).toEqual({
+            ...initialState,
+            error: 'some-error',
+            loading: false
         })
     })
 })
