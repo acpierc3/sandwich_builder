@@ -136,8 +136,7 @@ export class BurgerBuilder extends Component {
                 clickContinue={this.purchaseContinueHandler}
                 clickCancel={this.onPurchaseCancel}
                 price={this.props.price}  />;
-        }
-        if (this.state.loading) {
+        } else {
             orderSummary = <Spinner />;
         }
 
