@@ -46,4 +46,18 @@ describe('auth reducer', () => {
             loading: false
         })
     })
+
+    it('should remove user and token upon logout', () => {
+        expect(reducer({
+            ...initialState,
+            userId: 'test-id',
+            token: 'test-token'
+        }, {
+            type: actionTypes.AUTH_LOGOUT
+        })).toEqual({
+            ...initialState,
+            token: null,
+            userId: null
+        })
+    })
 })
