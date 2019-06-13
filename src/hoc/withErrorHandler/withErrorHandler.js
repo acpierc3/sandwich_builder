@@ -1,46 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../Ox/Ox';
 import Backdrop from '../../components/UI/Backdrop/Backdrop'
 
 const withErrorHandler = (WrappedComponent, axios) => {
-    return class extends Component {
-        state = {
-            error:null
-        }
-        componentWillMount () {
-            this.reqInterceptor = axios.interceptors.request.use(req => {             //used to set error state to null if there are no errors
-                this.setState({error: null});
+    return props => {
+
+        const [error, setError] = useState(null);
+
+        // since we are changing to a functional component, can remove componentwillmount because this code will run before JSX code is rendered
+        // componentWillMount () {
+            const reqInterceptor = axios.interceptors.request.use(req => {             //used to set error state to null if there are no errors
+                setError(null);
                 return req;
             });
-            this.resInterceptor = axios.interceptors.response.use(res => res, error => {     //record error if there is one
-                this.setState({error: error});
+            const resInterceptor = axios.interceptors.response.use(res => res, err => {     //record error if there is one
+                setError(err);
             });
+        // }
+
+        //removes interceptors when component is no longer mounted so that a bunch of interceptors dont exist after mounting/unmounting multiple components
+        useEffect(() => {
+            
+            //return in useEffect() hook is the "cleanup" function
+            return () => {
+                axios.interceptors.request.eject(reqInterceptor);
+                axios.interceptors.response.eject(resInterceptor);
+            };
+        }, [reqInterceptor, resInterceptor])            
+            
+
+        const errorConfirmedHandler = () => {
+            setError(null);
         }
 
-        componentWillUnmount() {                //removes interceptors when component is no longer mounted so that a bunch of interceptors dont exist after mounting/unmounting multiple components
-            axios.interceptors.request.eject(this.reqInterceptor);
-            axios.interceptors.response.eject(this.resInterceptor);
-        }
-
-        errorConfirmedHandler = () => {
-            this.setState({error:null});
-        }
-
-        render() {
-            return (
-                <Aux>
-                    <Modal 
-                        show={this.state.error}
-                        cancel={this.errorConfirmedHandler}>
-                        {this.state.error? this.state.error.message : null}
-                    </Modal>
-                    <Backdrop show={this.state.error} cancel={this.errorConfirmedHandler}/>
-                    <WrappedComponent {...this.props} />
-                </Aux>
-            );
-        }
+        return (
+            <Aux>
+                <Modal 
+                    show={error}
+                    cancel={errorConfirmedHandler}>
+                    {error? error.message : null}
+                </Modal>
+                <Backdrop show={error} cancel={errorConfirmedHandler}/>
+                <WrappedComponent {...props} />
+            </Aux>
+        );
     }
 }
 
