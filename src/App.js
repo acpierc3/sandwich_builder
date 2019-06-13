@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
@@ -24,42 +24,43 @@ const asyncAuth = asyncComponent(() => {
   return import('./containers/Auth/Auth');
 });
 
-class App extends Component {
+//currently there is a bug with React where you get an error using hooks if function name isn't capitalized so I will leave this capitalized even though it is not convention for functional component
+const App = props => {
+  useEffect(() => {
+    props.authCheckState();
+  }, []);
+  //this hook used to replace the componentDidMount() lifecycle method
+  
+    
 
-  componentDidMount() {
-    this.props.authCheckState();
-  }
-
-  render() {
-    let routes = (
+  let routes = (
+    <Switch>
+      <Route path='/auth' component={asyncAuth} />
+      <Route path='/' exact component={BurgerBuilder} />
+      <Redirect to='/' />
+    </Switch>
+  );
+  
+  if (props.isAuthenticated) {
+    routes = (
       <Switch>
+        <Route path='/checkout' component={asyncCheckout} />
+        <Route path='/orders' component={asyncOrders} />
+        <Route path='/logout' component={Logout} />
         <Route path='/auth' component={asyncAuth} />
         <Route path='/' exact component={BurgerBuilder} />
         <Redirect to='/' />
       </Switch>
     );
-    
-    if (this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path='/checkout' component={asyncCheckout} />
-          <Route path='/orders' component={asyncOrders} />
-          <Route path='/logout' component={Logout} />
-          <Route path='/auth' component={asyncAuth} />
-          <Route path='/' exact component={BurgerBuilder} />
-          <Redirect to='/' />
-        </Switch>
-      );
-    }
-
-    return (
-      <div>
-        <Layout>
-          {routes}
-        </Layout>
-      </div>
-    );
   }
+
+  return (
+    <div>
+      <Layout>
+        {routes}
+      </Layout>
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
