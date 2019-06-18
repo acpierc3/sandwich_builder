@@ -49,9 +49,9 @@
     position: absolute;
     background-color: white;
     left: 180%;
-    top: -50%;
+    top: -20%;
     border-radius: 40%;
-    transform: rotate(60deg);
+    transform: rotate(50deg);
     box-shadow: inset -1px -3px #c9c9c9;
   }
 
@@ -74,9 +74,9 @@
     position: absolute;
     background-color: white;
     left: 150%;
-    top: -130%;
+    top: -80%;
     border-radius: 40%;
-    transform: rotate(90deg);
+    transform: rotate(220deg);
     box-shadow: inset 1px 3px #c9c9c9;
   }
   
