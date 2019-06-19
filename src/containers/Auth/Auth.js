@@ -44,7 +44,7 @@ const Auth = props => {
             }
         })
 
-        const [isSignup, setIsSignup] = useState(true);
+        const [isSignup, setIsSignup] = useState(false);
 
     useEffect(() => {
         if (!props.building && props.authRedirectPath !== '/') {
@@ -126,7 +126,7 @@ const Auth = props => {
         <div className={classes.Auth}>
             {authRedirect}
             <form onSubmit={submitHandler}>
-                <h3>{isSignup ? "New User Registration" : "Returning User Log-in"}</h3>
+                <h3>{isSignup ? "New User Registration" : "User Log-in"}</h3>
                 {form}
                 {errorMessage}
                 <Button type="Success">SUBMIT</Button>
@@ -134,7 +134,7 @@ const Auth = props => {
             </form>
             <Button 
                 clicked={switchAuthModeHandler}
-                type="Danger">{isSignup ? "SWITCH TO LOGIN" : "SWITCH TO REGISTER"}</Button>
+                type="Danger">{isSignup ? "SWITCH TO LOGIN" : "REGISTER NOW"}</Button>
         </div>
     );
 }
