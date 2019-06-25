@@ -29,6 +29,7 @@ const App = props => {
 
   useEffect(() => {
     props.authCheckState();
+    // eslint-disable-next-line
   }, []);
   //this hook used to replace the componentDidMount() lifecycle method
   

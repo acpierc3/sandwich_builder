@@ -29,6 +29,7 @@ const BurgerBuilder = props => {
         if (!props.ingreds) {
             props.onInitIngredients();
         }
+        // eslint-disable-next-line
     }, [])
 
     const onPurchase = () => {

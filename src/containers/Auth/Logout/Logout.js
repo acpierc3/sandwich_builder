@@ -8,6 +8,7 @@ const Logout = props => {
 
     useEffect(() => {
         props.onLogout();
+        // eslint-disable-next-line
     }, [])
 
     return <Redirect to="/"/>;

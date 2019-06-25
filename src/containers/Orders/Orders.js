@@ -27,6 +27,7 @@ const Orders = props => {
 
     useEffect(() => {
         props.onFetchOrders(props.token, props.userId);
+        // eslint-disable-next-line
     }, [])
 
 

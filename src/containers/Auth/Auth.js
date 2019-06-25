@@ -50,6 +50,7 @@ const Auth = props => {
         if (!props.building && props.authRedirectPath !== '/') {
             props.onSetAuthRedirectPath('/');
         }
+        // eslint-disable-next-line
     }, [])
 
     const inputChangedHandler = (event, controlName) => {
