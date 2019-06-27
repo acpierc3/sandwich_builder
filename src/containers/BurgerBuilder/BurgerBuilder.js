@@ -41,6 +41,8 @@ const BurgerBuilder = props => {
 
     const purchaseContinueHandler = () => {
 
+        //moved to onInitPurchas
+        
         // const queryParams = [];
         // for (let i in this.props.ingreds) {
         //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
