@@ -15,14 +15,6 @@ import axios from '../../axios-orders';
 
 const BurgerBuilder = props => {
 
-    // state = {
-    //     // ingredients: null,
-    //     // totalPrice: 3,
-
-    //     // purchasable: false,     
-    //     purchasing: false, //the following are UI based states, and not super important to manage through redux
-    // }
-
     const [purchasing, setPurchasing] = useState(false);
 
     useEffect(() => {
