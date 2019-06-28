@@ -36,3 +36,14 @@ var param_2 = obj.shuffle();
 
 console.log(param_1);
 console.log(param_2);
+
+
+const person = {
+    name: 'Max',
+    age: 29,
+    greet() {
+        console.log('Hi, I am ' +this.name);
+    }
+}
+
+person.greet();
