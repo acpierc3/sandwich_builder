@@ -33,17 +33,3 @@ Solution.prototype.shuffle = function() {
 var obj = new Solution(input);
 var param_1 = obj.reset();
 var param_2 = obj.shuffle();
-
-console.log(param_1);
-console.log(param_2);
-
-
-const person = {
-    name: 'Max',
-    age: 29,
-    greet() {
-        console.log('Hi, I am ' +this.name);
-    }
-}
-
-person.greet();
