@@ -1,20 +1,27 @@
-'use strict';
-
 /**
- * @param {number[]} nums
- * @param {number} k
- * @return {number[]}
+ * @param {number} n
+ * @return {number}
  */
-var topKFrequent = function(nums, k) {
+
+const answers = [1,1];
+
+var trailingZeroes = function(n) {
     
-    let hash = {};
-    
-    for(let i = 0; i < nums.length; i++) {
-        hash[nums[i]] = (hash[nums[i]] || 0) + 1;
+    if(n < 2) { return 0 }
+
+    if (n >= answers.length) {
+        for(let i = answers.length-1; i <= n; i++) {
+            answers[i] = answers[i-1] * i;
+        }
     }
     
-    let sorted = Object.keys(hash).sort((a,b) => {return hash[b]-hash[a]});
-    
-    return sorted.splice(0,k);
+    let str = answers[n].toString();
+    let numZeroes = 0;
 
+    
+    while(str.charAt(str.length-1) === "0") {
+        numZeroes++;
+        str = str.substring(0, str.length - 1);
+    }
+    return numZeroes;
 };
