@@ -1,35 +1,20 @@
 'use strict';
 
-let input = [1,2,3];
-
-var Solution = function(nums) {
-    this.OGnums = nums;
-    this.nums = nums;
-    this.shufflednums = nums;
-};
-
-
-Solution.prototype.reset = function() {
-    return this.OGnums;
-};
-
-
-Solution.prototype.shuffle = function() {
-    while(this.nums.length > 0) {
-        console.log(this.nums);
-        console.log(Math.floor(Math.random()*this.OGnums.length));
-        if(this.nums.length != 1) {
-            this.shufflednums[Math.floor(Math.random()*this.OGnums.length)] = this.nums.pop();
-        } else {
-            this.shufflednums[Math.floor(Math.random()*this.OGnums.length)] = this.nums[0];
-        }
-            // this.nums.pop();
-        
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    
+    let hash = {};
+    
+    for(let i = 0; i < nums.length; i++) {
+        hash[nums[i]] = (hash[nums[i]] || 0) + 1;
     }
-    return this.shufflednums;
+    
+    let sorted = Object.keys(hash).sort((a,b) => {return hash[b]-hash[a]});
+    
+    return sorted.splice(0,k);
+
 };
-
-
-var obj = new Solution(input);
-var param_1 = obj.reset();
-var param_2 = obj.shuffle();
